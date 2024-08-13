@@ -71,8 +71,12 @@ products.forEach((product)=>{
             productId,
             quantity: 1
           });
-
         }
-      console.log(carrito)
+        let carritoQuantity = 0;
+        carrito.forEach((item)=>{
+          carritoQuantity += item.quantity;
+        });
+        document.querySelector('.js-carrito-quantity').innerHTML=carritoQuantity;
+      console.log(carritoQuantity)
     });
   });
