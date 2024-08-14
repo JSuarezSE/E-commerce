@@ -1,4 +1,4 @@
-export const carrito=[
+export let carrito=[
 {productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', 
  quantity: 2,
 },
@@ -25,4 +25,15 @@ export function addtoCarrito(productId){
         quantity
       });
     }
+}
+
+export function borrarCarrito(productId) {
+  const newCarrito=[];
+  carrito.forEach((carritoItem)=>{
+    if (carritoItem.productId !== productId) {
+      newCarrito.push(carritoItem);
+    }    
+  });
+
+  carrito = newCarrito;
 }

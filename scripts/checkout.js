@@ -1,4 +1,4 @@
-import {carrito} from '../data/carrito.js';
+import {carrito, borrarCarrito} from '../data/carrito.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 let cartSummaryHtml='';
@@ -18,7 +18,7 @@ carrito.forEach((carritoItem)=>{
   cartSummaryHtml+=`
   <div class="cart-item-container">
       <div class="delivery-date">
-        Delivery date: Tuesday, June 21
+        Fecha de delivery: Miercoles, 14 de Agosto
       </div>
 
       <div class="cart-item-details-grid">
@@ -34,12 +34,13 @@ carrito.forEach((carritoItem)=>{
           </div>
           <div class="product-quantity">
             <span>
-              Quantity: <span class="quantity-label">${carritoItem.quantity}</span>
+              Cantidad: <span class="quantity-label">${carritoItem.quantity}</span>
             </span>
             <span class="update-quantity-link link-primary">
               Actualizar
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="delete-quantity-link link-primary 
+            js-borrar-link" data-product-id="${matchingProducts.id}">
               Eliminar
             </span>
           </div>
@@ -47,7 +48,7 @@ carrito.forEach((carritoItem)=>{
 
         <div class="delivery-options">
           <div class="delivery-options-title">
-            Choose a delivery option:
+            Escoje una opción de delivery:
           </div>
           <div class="delivery-option">
             <input type="radio" checked
@@ -55,10 +56,10 @@ carrito.forEach((carritoItem)=>{
               name="delivery-option-${matchingProducts.id}">
             <div>
               <div class="delivery-option-date">
-                Tuesday, June 21
+                Miercoles, 14 de agosto
               </div>
               <div class="delivery-option-price">
-                FREE Shipping
+                Envio gratis
               </div>
             </div>
           </div>
@@ -71,7 +72,7 @@ carrito.forEach((carritoItem)=>{
                 Wednesday, June 15
               </div>
               <div class="delivery-option-price">
-                $4.99 - Shipping
+                $4.99 - Gastos de envío
               </div>
             </div>
           </div>
@@ -84,7 +85,7 @@ carrito.forEach((carritoItem)=>{
                 Monday, June 13
               </div>
               <div class="delivery-option-price">
-                $9.99 - Shipping
+                $9.99 - Gastos de envío
               </div>
             </div>
           </div>
@@ -95,3 +96,10 @@ carrito.forEach((carritoItem)=>{
 });
 
 document.querySelector('.js-carrito').innerHTML= cartSummaryHtml;
+
+document.querySelectorAll('.js-borrar-link').forEach((link) => {
+  link.addEventListener('click', ()=>{
+    const {productId}= link.dataset;
+    borrarCarrito(productId);
+  });
+});
