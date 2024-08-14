@@ -1,3 +1,4 @@
+import{carrito} from '../data/carrito.js';
 let productosHTML='';
 
 products.forEach((product)=>{
@@ -55,6 +56,7 @@ products.forEach((product)=>{
 });
   
   document.querySelector('.js-productos-grid').innerHTML = productosHTML;
+  
   document.querySelectorAll('.js-add-carrito').forEach((button)=>{
     let addedMessageTimeoutId;
     button.addEventListener('click', ()=>{
