@@ -1,7 +1,9 @@
-import {carrito, borrarCarrito} from '../data/carrito.js';
+import {carrito, borrarCarrito, updateCarrito} from '../data/carrito.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 let cartSummaryHtml='';
+
+updateCarrito('.js-revision');
 
 carrito.forEach((carritoItem)=>{
   

@@ -1,8 +1,8 @@
-import{carrito, addtoCarrito} from '../data/carrito.js';
+import{carrito, addtoCarrito, updateCarrito} from '../data/carrito.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 let productosHTML='';
-
+updateCarrito('.js-carrito-quantity');
 products.forEach((product)=>{
       productosHTML += `
     <div class="product-container">
@@ -58,13 +58,8 @@ products.forEach((product)=>{
 });
   
   document.querySelector('.js-productos-grid').innerHTML = productosHTML;
-
-  function updateCarrito(addedMessageTimeoutId,productId) {
-    let carritoQuantity = 0;
-        carrito.forEach((carritoItem)=>{
-          carritoQuantity += carritoItem.quantity;
-        });
-        document.querySelector('.js-carrito-quantity').innerHTML=carritoQuantity;
+  
+  function updateAddCarrito(addedMessageTimeoutId,productId) {
         const addedMessage = document.querySelector(`.js-added-${productId}`);
         addedMessage.classList.add('added-to-cart-visible');
 
@@ -81,6 +76,6 @@ products.forEach((product)=>{
     button.addEventListener('click', ()=>{
       const {productId}= button.dataset;
         addtoCarrito(productId);
-        updateCarrito(addedMessageTimeoutId, productId);
+        updateAddCarrito(addedMessageTimeoutId, productId);
     });
   });
