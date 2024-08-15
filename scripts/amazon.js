@@ -60,6 +60,8 @@ products.forEach((product)=>{
   document.querySelector('.js-productos-grid').innerHTML = productosHTML;
   
   function updateAddCarrito(addedMessageTimeoutId,productId) {
+    
+
         const addedMessage = document.querySelector(`.js-added-${productId}`);
         addedMessage.classList.add('added-to-cart-visible');
 
@@ -77,5 +79,7 @@ products.forEach((product)=>{
       const {productId}= button.dataset;
         addtoCarrito(productId);
         updateAddCarrito(addedMessageTimeoutId, productId);
+        updateCarrito('.js-carrito-quantity');
+
     });
   });

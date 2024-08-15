@@ -106,5 +106,6 @@ document.querySelectorAll('.js-borrar-link').forEach((link) => {
     
    const container = document.querySelector(`.js-cart-item-${productId}`)
     container.remove();
+    updateCarrito('.js-revision');
   });
 });
