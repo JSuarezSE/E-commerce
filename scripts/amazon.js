@@ -61,7 +61,6 @@ products.forEach((product)=>{
   
   function updateAddCarrito(addedMessageTimeoutId,productId) {
     
-
         const addedMessage = document.querySelector(`.js-added-${productId}`);
         addedMessage.classList.add('added-to-cart-visible');
 

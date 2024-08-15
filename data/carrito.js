@@ -54,3 +54,14 @@ export function updateCarrito(classname) {
       });
       document.querySelector(classname).innerHTML=carritoQuantity;
 }
+
+export function updateQuantity(productId, newQuantity) {
+  let matchingItem;
+  carrito.forEach(carritoItem => {
+    if (productId === carritoItem.productId) {
+      matchingItem= carritoItem;
+    }
+  });
+  matchingItem.quantity= newQuantity;
+  guardarLocalStorage();
+}

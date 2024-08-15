@@ -1,4 +1,4 @@
-import {carrito, borrarCarrito, updateCarrito} from '../data/carrito.js';
+import {carrito, borrarCarrito, updateCarrito, updateQuantity} from '../data/carrito.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 let cartSummaryHtml='';
@@ -36,11 +36,14 @@ carrito.forEach((carritoItem)=>{
           </div>
           <div class="product-quantity">
             <span>
-              Cantidad: <span class="quantity-label">${carritoItem.quantity}</span>
+              Cantidad: <span class="quantity-label js-quantity-label-${matchingProducts.id}">${carritoItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
-              Actualizar
+            <span class="update-quantity-link link-primary 
+            js-actualizar-link" data-product-id="${matchingProducts.id}">
+              Actualizar 
             </span>
+            <input class="quantity-input js-quantity-input-${matchingProducts.id}">
+            <span class="save-quantity-link link-primary js-guardar-link" data-product-id="${matchingProducts.id}">Guardar</span>
             <span class="delete-quantity-link link-primary 
             js-borrar-link" data-product-id="${matchingProducts.id}">
               Eliminar
@@ -58,10 +61,10 @@ carrito.forEach((carritoItem)=>{
               name="delivery-option-${matchingProducts.id}">
             <div>
               <div class="delivery-option-date">
-                Miercoles, 14 de agosto
+                Miercoles, 14 de Agosto
               </div>
               <div class="delivery-option-price">
-                Envio gratis
+                Envío gratis
               </div>
             </div>
           </div>
@@ -71,7 +74,7 @@ carrito.forEach((carritoItem)=>{
               name="delivery-option-${matchingProducts.id}">
             <div>
               <div class="delivery-option-date">
-                Wednesday, June 15
+                Jueves, 15 de Agosto
               </div>
               <div class="delivery-option-price">
                 $4.99 - Gastos de envío
@@ -84,7 +87,7 @@ carrito.forEach((carritoItem)=>{
               name="delivery-option-${matchingProducts.id}">
             <div>
               <div class="delivery-option-date">
-                Monday, June 13
+                Domingo, 18 de Agosto
               </div>
               <div class="delivery-option-price">
                 $9.99 - Gastos de envío
@@ -109,3 +112,36 @@ document.querySelectorAll('.js-borrar-link').forEach((link) => {
     updateCarrito('.js-revision');
   });
 });
+
+document.querySelectorAll('.js-actualizar-link').forEach(link => {
+  link.addEventListener('click', ()=>{
+    const {productId} = link.dataset;
+    const container = document.querySelector(
+      `.js-cart-item-${productId}`
+    );
+    container.classList.add('is-editing-quantity');
+    
+  
+  });
+});;
+
+document.querySelectorAll('.js-guardar-link').forEach(link => {
+  link.addEventListener('click', ()=>{
+    const {productId} = link.dataset;
+    const container = document.querySelector(
+      `.js-cart-item-${productId}`
+    );
+    container.classList.remove('is-editing-quantity');
+    const quantityInput = document.querySelector(
+      `.js-quantity-input-${productId}`
+    );
+    const newQuantity = Number(quantityInput.value);
+      updateQuantity(productId,newQuantity)
+      const quantityLabel = document.querySelector(
+        `.js-quantity-label-${productId}`
+      );
+      quantityLabel.innerHTML = newQuantity;
+      updateCarrito('.js-revision');
+  });
+});;
+
