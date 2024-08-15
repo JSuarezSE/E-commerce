@@ -69,3 +69,15 @@ export function updateQuantity(productId, newQuantity) {
   matchingItem.quantity= newQuantity;
   guardarLocalStorage();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;  
+  carrito.forEach(carritoItem => {
+      if (productId === carritoItem.productId) {
+        matchingItem=carritoItem
+      }
+    });
+    matchingItem.deliveryOptionId = deliveryOptionId;
+
+    guardarLocalStorage();
+}
