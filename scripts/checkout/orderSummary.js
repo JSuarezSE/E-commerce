@@ -117,6 +117,7 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
       
     const container = document.querySelector(`.js-cart-item-${productId}`)
       container.remove();
+      renderPayment();
       document.querySelector('.js-revision').innerHTML= updateCarrito();
     });
   });
