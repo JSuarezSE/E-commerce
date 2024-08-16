@@ -51,12 +51,12 @@ export function borrarCarrito(productId) {
   guardarLocalStorage();
 }
 
-export function updateCarrito(classname) {
+export function updateCarrito() {
   let carritoQuantity = 0;
       carrito.forEach((carritoItem)=>{
         carritoQuantity += carritoItem.quantity;
       });
-      document.querySelector(classname).innerHTML=carritoQuantity;
+      return carritoQuantity
 }
 
 export function updateQuantity(productId, newQuantity) {

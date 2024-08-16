@@ -1,14 +1,15 @@
 import {carrito, borrarCarrito, updateCarrito, updateQuantity, updateDeliveryOption} from '../../data/carrito.js';
-import {products} from '../../data/products.js';
+import {products, getProducts} from '../../data/products.js';
 import { formatMoney } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions} from "../../data/deliveryOptions.js";
+import {deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js";
+import { renderPayment } from './paymentSummary.js';
 
 
-
+document.querySelector('.js-revision').innerHTML= updateCarrito();
  export function renderRevision() {
 
-  updateCarrito('.js-revision');
+ 
   
   let cartSummaryHtml='';
   
@@ -16,22 +17,12 @@ import {deliveryOptions} from "../../data/deliveryOptions.js";
     
     const productId = carritoItem.productId;
     
-    let matchingProducts;
-
-    products.forEach((product)=>{
-        if (product.id === productId) {
-          matchingProducts = product; 
-        }    
-    });
+    const matchingProducts = getProducts(productId);
 
     const deliveryOptionId = carritoItem.deliveryOptionId;
 
-    let deliveryOption;
-    deliveryOptions.forEach((option)=>{
-      if( option.id === deliveryOptionId){
-        deliveryOption = option;
-      }
-    });
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
+    
       const hoy = dayjs()
       const deliveryDate = hoy.add(deliveryOption.deliveryDays, 'days');
       const dateString = deliveryDate.format('dddd, MMMM D');
@@ -126,7 +117,7 @@ import {deliveryOptions} from "../../data/deliveryOptions.js";
       
     const container = document.querySelector(`.js-cart-item-${productId}`)
       container.remove();
-      updateCarrito('.js-revision');
+      document.querySelector('.js-revision').innerHTML= updateCarrito();
     });
   });
 
@@ -158,7 +149,10 @@ import {deliveryOptions} from "../../data/deliveryOptions.js";
           `.js-quantity-label-${productId}`
         );
         quantityLabel.innerHTML = newQuantity;
-        updateCarrito('.js-revision');
+    
+        document.querySelector('.js-revision').innerHTML= updateCarrito();
+        renderPayment();
+
     });
   });;
 
@@ -167,6 +161,7 @@ import {deliveryOptions} from "../../data/deliveryOptions.js";
       const {productId, deliveryOptionId} = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderRevision();
+      renderPayment();
     });
   });
   

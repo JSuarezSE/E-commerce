@@ -2,7 +2,8 @@ import{carrito, addtoCarrito, updateCarrito} from '../data/carrito.js';
 import {products} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 let productosHTML='';
-updateCarrito('.js-carrito-quantity');
+document.querySelector('.js-carrito-quantity').innerHTML= updateCarrito();
+
 products.forEach((product)=>{
       productosHTML += `
     <div class="product-container">
@@ -78,7 +79,7 @@ products.forEach((product)=>{
       const {productId}= button.dataset;
         addtoCarrito(productId);
         updateAddCarrito(addedMessageTimeoutId, productId);
-        updateCarrito('.js-carrito-quantity');
+        document.querySelector('.js-carrito-quantity').innerHTML= updateCarrito();
 
     });
   });
