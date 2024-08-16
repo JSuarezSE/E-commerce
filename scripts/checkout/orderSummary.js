@@ -2,15 +2,13 @@ import {carrito, borrarCarrito, updateCarrito, updateQuantity, updateDeliveryOpt
 import {products, getProducts} from '../../data/products.js';
 import { formatMoney } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js";
+import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js";
 import { renderPayment } from './paymentSummary.js';
 
 
-document.querySelector('.js-revision').innerHTML= updateCarrito();
+document.querySelector('.js-revision').innerHTML= `${updateCarrito()} items`;
  export function renderRevision() {
 
- 
-  
   let cartSummaryHtml='';
   
   carrito.forEach((carritoItem)=>{
@@ -22,15 +20,12 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
     const deliveryOptionId = carritoItem.deliveryOptionId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
-    
-      const hoy = dayjs()
-      const deliveryDate = hoy.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd, MMMM D');
+   
 
     cartSummaryHtml+=`
     <div class="cart-item-container js-cart-item-${matchingProducts.id}">
         <div class="delivery-date">
-          Fecha de delivery: ${dateString}
+          Fecha de delivery: ${calculateDeliveryDate(deliveryOption)}
         </div>
 
         <div class="cart-item-details-grid">
@@ -78,9 +73,6 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
 
     deliveryOptions.forEach((deliveryOption)=>{
 
-      const hoy = dayjs()
-      const deliveryDate = hoy.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd, MMMM D');
 
       const priceString = deliveryOption.priceCents === 0
       ? 'GRATIS'
@@ -96,7 +88,7 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
                 name="delivery-option-${matchingProducts.id}">
               <div>
                 <div class="delivery-option-date">
-                  ${dateString}
+                  ${calculateDeliveryDate(deliveryOption)}
                 </div>
                 <div class="delivery-option-price">
                   ${priceString} Gastos de envío
@@ -115,10 +107,9 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
       const {productId}= link.dataset;
       borrarCarrito(productId);
       
-    const container = document.querySelector(`.js-cart-item-${productId}`)
-      container.remove();
+      renderRevision();
       renderPayment();
-      document.querySelector('.js-revision').innerHTML= updateCarrito();
+      document.querySelector('.js-revision').innerHTML= `${updateCarrito()} items`;
     });
   });
 
@@ -151,7 +142,7 @@ document.querySelector('.js-revision').innerHTML= updateCarrito();
         );
         quantityLabel.innerHTML = newQuantity;
     
-        document.querySelector('.js-revision').innerHTML= updateCarrito();
+        document.querySelector('.js-revision').innerHTML= `${updateCarrito()} items`;
         renderPayment();
 
     });
