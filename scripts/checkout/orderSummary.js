@@ -36,7 +36,7 @@ document.querySelector('.js-revision').innerHTML= `${updateCarrito()} items`;
               ${matchingProducts.name}
             </div>
             <div class="product-price">
-              $${formatMoney(matchingProducts.priceCents)}
+              ${matchingProducts.getPrice()}
             </div>
             <div class="product-quantity">
               <span>
