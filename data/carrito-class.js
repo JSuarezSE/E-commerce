@@ -1,16 +1,16 @@
 class Carrito {
 
   carritoItems;
-  localStorageKey;
+  #localStorageKey;
   
   constructor(localStorageKey){   
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
   
-    this.loadFromStorage();
+    this.#loadFromStorage();
   }
   
-  loadFromStorage(){
-    this.carritoItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage(){
+    this.carritoItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
       if (!this.carritoItems) {
         this.carritoItems = [
         {productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', 
@@ -25,10 +25,10 @@ class Carrito {
   }
 
   guardarLocalStorage() {
-    localStorage.setItem(this.addtoCarrito.localStorageKey, JSON.stringify(this.carritoItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.carritoItems));
   }
    guardarLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.carritoItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.carritoItems));
   }
 
   addtoCarrito(productId){
@@ -96,6 +96,6 @@ class Carrito {
 }
 const carrito = new Carrito('carrito-opp');
 const bussinesCarrito = new Carrito('carrito-bussines');
-
+ 
 console.log(carrito);
 console.log(bussinesCarrito);
