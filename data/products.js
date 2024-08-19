@@ -34,26 +34,48 @@ class Product {
   getPrice(){
     return `$${formatMoney(this.priceCents)}`;
   }
+  
+  extraInfoHtml(){
+    return '';
+  }
+}
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHtml(){
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+      Tabla de tallas
+      </a>
+    `;
+  }
 
 }
 
-const product1 = new Product({
-    id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    name: "Calcetines de Algodón Atléticos Negros y Grises - 6 Pares",
-    rating: {
-      stars: 4.5,
-      count: 87
-    },
-    priceCents: 1090,
-    keywords: [
-      "calcetines",
-      "deportes",
-      "ropa"
-    ]
-  });
-
-  console.log(product1);
+const tshirt = new Clothing({
+  id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+  image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+  name: "Camiseta de Algodón Lisa para Adultos - Paquete de 2",
+  rating: {
+    stars: 4.5,
+    count: 56
+  },
+  priceCents: 799,
+  keywords: [
+    "camisetas",
+    "ropa",
+    "hombres"
+  ],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png"
+});
+  console.log(tshirt);
+  console.log(tshirt.getPrice());
   
 export const products = [
   {
@@ -715,7 +737,10 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
+
+  if (productDetails.type === 'clothing'){
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
 
-console.log(products);
