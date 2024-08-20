@@ -5,7 +5,13 @@ import { renderPayment } from "./checkout/paymentSummary.js";
 //import '../data/backend-practica.js'
  
 async function loadPage() {
-  await loadProductsFetch()
+
+  try{
+    await loadProductsFetch()
+  } catch(error){
+    console.log('error inesperado, vuelve a intentarlo mas tarde');
+  }
+  
   renderRevision();
   renderPayment();
 }
