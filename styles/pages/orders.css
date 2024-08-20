@@ -132,7 +132,7 @@
 
 .buy-again-button {
   font-size: 15px;
-  width: 140px;
+  width: auto;
   height: 36px;
   border-radius: 8px;
 
