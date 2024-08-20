@@ -85,4 +85,9 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
     matchingItem.deliveryOptionId = deliveryOptionId;
 
     guardarLocalStorage();
+    
+}
+export function resetCart() {
+  cart = [];
+  saveToStorage();
 }

@@ -1,4 +1,4 @@
-import { carrito, updateCarrito } from "../../data/carrito.js";
+import { carrito, resetCart, updateCarrito } from "../../data/carrito.js";
 import {products, getProducts} from '../../data/products.js';
 import {deliveryOptions, getDeliveryOption} from "../../data/deliveryOptions.js";
 import { formatMoney } from "../utils/money.js";
@@ -69,6 +69,7 @@ export function renderPayment() {
     }catch(e){
       console.log('error inesperado, vuelve a intentarlo mas tarde');
     }
+    resetCart();
     window.location.href = 'orders.html';
   });
 
