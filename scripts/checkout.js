@@ -3,11 +3,20 @@ import { renderRevision } from "./checkout/orderSummary.js";
 import { renderPayment } from "./checkout/paymentSummary.js";
 //import'../data/carrito-class.js';
 //import '../data/backend-practica.js'
+ 
+async function loadPage() {
+  await loadProductsFetch()
+  renderRevision();
+  renderPayment();
+}
 
+loadPage();
+/*
 loadProductsFetch().then(()=>{
   renderRevision();
   renderPayment();
 });
+*/
 /*
 Promise.all([
   new Promise((resolve)=>{
