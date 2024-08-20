@@ -1,9 +1,11 @@
 import{carrito, addtoCarrito, updateCarrito} from '../data/carrito.js';
-import {products, loadProducts} from '../data/products.js';
+import {products, loadProductsFetch} from '../data/products.js';
 import { formatMoney } from './utils/money.js';
 
 
-loadProducts(renderProducts);
+loadProductsFetch().then(()=>{
+  renderProducts();
+});
 
 
 
