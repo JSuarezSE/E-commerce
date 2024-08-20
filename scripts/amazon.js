@@ -13,8 +13,18 @@ function renderProducts() {
     
   let productosHTML='';
   document.querySelector('.js-carrito-quantity').innerHTML= updateCarrito();
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
 
-  products.forEach((product)=>{
+  let filteredProducts = products;
+
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      return product.name.toLowerCase().includes(search.toLowerCase());
+    });
+  }
+
+  filteredProducts.forEach((product) => {
         productosHTML += `
       <div class="product-container">
         <div class="product-image-container">
@@ -97,5 +107,8 @@ function renderProducts() {
 
       });
     });
-    
+    document.querySelector('.js-search-button').addEventListener('click',()=>{
+      const search = document.querySelector('.js-search-bar').value;
+      window.location.href = `amazon.html?search=${search}`;
+    });
 }
