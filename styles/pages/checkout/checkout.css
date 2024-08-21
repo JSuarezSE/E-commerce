@@ -60,7 +60,7 @@
 
 .cart-item-container,
 .payment-summary {
-  border: 1px solid rgb(222, 222, 222);
+  border: 1px solid rgb(228, 210, 210);
   border-radius: 4px;
   padding: 18px;
 }
@@ -177,7 +177,7 @@
 }
 
 .subtotal-row .payment-summary-money {
-  border-top: 1px solid rgb(222, 222, 222);
+  border-top: 1px solid rgb(51, 48, 48);
 }
 
 .subtotal-row div {
@@ -189,7 +189,7 @@
   font-weight: 700;
   font-size: 18px;
 
-  border-top: 1px solid rgb(222, 222, 222);
+  border-top: 1px solid rgb(51, 48, 48);
   padding-top: 18px;
 }
 
