@@ -1,1 +1,1 @@
-Practicando con javascript
+Página de ventas con javascript
